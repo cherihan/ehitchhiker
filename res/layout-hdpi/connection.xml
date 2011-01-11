@@ -28,15 +28,34 @@
 
 	<CheckBox android:id="@+id/connectionRememberMe" android:layout_height="wrap_content"
 		android:text="@string/connection_rememberMeText" android:layout_width="wrap_content"
-		android:layout_below="@id/connectionMdpEditText"
+		android:layout_below="@id/connectionMdpEditText" android:checked="true"
 		android:layout_centerHorizontal="true"></CheckBox>
 		
-	<Button android:text="@+id/Button01"
+	<Button android:text="@string/connection_connectionButton"
 		android:layout_height="wrap_content" 
-		android:layout_width="wrap_content"
+		android:layout_width="150dip"
 		android:layout_below="@+id/connectionRememberMe" 
-		android:id="@+id/Button01" 
-		android:layout_alignLeft="@+id/connectionRememberMe" 
-		android:layout_alignRight="@+id/connectionRememberMe"></Button>
+		android:id="@+id/connection_connect" 
+		android:layout_marginTop="10dip"
+		android:layout_centerHorizontal="true"></Button>
+		
+		
+		
+		<TextView android:id="@+id/connectionTextInscription"
+		android:layout_height="wrap_content" android:layout_width="wrap_content"
+		android:layout_marginTop="10dip" android:layout_marginLeft="10dip"
+		android:layout_below="@id/connection_connect"
+		android:textSize="30dip" android:textColor="#FFFFFF"
+		android:text="@string/connection_inscription"></TextView>
+		
+		
+		
+		<Button android:text="@string/connection_inscriptionButton"
+		android:layout_height="wrap_content" 
+		android:layout_width="150dip"
+		android:layout_below="@+id/connectionTextInscription" 
+		android:id="@+id/connection_suscribe" 
+		android:layout_marginTop="10dip"
+		android:layout_centerHorizontal="true"></Button>
 		
 </RelativeLayout>
