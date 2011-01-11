@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:background="#4287B2" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+
+	<TextView android:id="@+id/connectionTextConnection"
+		android:layout_height="wrap_content" android:layout_width="wrap_content"
+		android:layout_marginTop="10dip" android:layout_marginLeft="10dip"
+		android:textSize="30dip" android:textColor="#FFFFFF"
+		android:text="@string/connection_connectionText"></TextView>
+
+
+	<EditText android:id="@+id/connectionUserEditText"
+		android:layout_height="wrap_content" android:layout_width="200dip"
+		android:layout_centerHorizontal="true" android:layout_below="@id/connectionTextConnection"
+		android:layout_marginTop="10dip" android:hint="@string/connection_connectionUserName"></EditText>
+
+
+
+	<EditText android:id="@+id/connectionMdpEditText"
+		android:layout_height="wrap_content" android:layout_width="200dip"
+		android:layout_centerHorizontal="true" android:layout_below="@id/connectionUserEditText"
+		android:layout_marginTop="10dip" android:password="true"
+		android:hint="@string/connection_connectionMdpName"></EditText>
+  
+
+
+	<CheckBox android:id="@+id/connectionRememberMe" android:layout_height="wrap_content"
+		android:text="@string/connection_rememberMeText" android:layout_width="wrap_content"
+		android:layout_below="@id/connectionMdpEditText"
+		android:layout_centerHorizontal="true"></CheckBox>
+		
+	<Button android:text="@+id/Button01"
+		android:layout_height="wrap_content" 
+		android:layout_width="wrap_content"
+		android:layout_below="@+id/connectionRememberMe" 
+		android:id="@+id/Button01" 
+		android:layout_alignLeft="@+id/connectionRememberMe" 
+		android:layout_alignRight="@+id/connectionRememberMe"></Button>
+		
+</RelativeLayout>

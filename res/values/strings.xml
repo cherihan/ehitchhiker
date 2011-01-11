@@ -2,4 +2,8 @@
 <resources>
     <string name="hello">Hello World !</string>
     <string name="app_name">ehitchhiker</string>
+    <string name="connection_connectionText">Connexion</string>
+    <string name="connection_connectionUserName">Identifiant</string>
+    <string name="connection_connectionMdpName">Mot de passe</string>
+    <string name="connection_rememberMeText">Se souvenir de moi</string>
 </resources>
