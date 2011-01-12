@@ -3,8 +3,8 @@
     <string name="hello">Hello World !</string>
     <string name="app_name">ehitchhiker</string>
     <string name="app_name_connection">eHitchhiker - Connexion</string>
-<string name="car_button">Voiture</string>
-<string name="map_button">Carte</string>
+<string name="destination_carButton">Voiture</string>
+<string name="destination_mapButton">Carte</string>
     <string name="connection_connectionText">Connexion</string>
     <string name="connection_connectionUserName">Identifiant</string>
     <string name="connection_connectionMdpName">Mot de passe</string>
@@ -13,4 +13,12 @@
     <string name="connection_inscription"> Pas de compte ?</string>
     <string name="connection_inscriptionButton"> S\'inscrire !</string>
   
+<string-array name="destination_list"><item>Saisir destination</item>
+<item>Dicter destination</item>
+<item>Destinations favorites</item>
+<item>_Dernières destinations</item>
+<item>dest1</item>
+<item>dest2</item>
+<item>dest3</item>
+</string-array>
 </resources>
