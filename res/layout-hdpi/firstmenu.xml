@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	
+	
+
+	
+	<ImageButton android:layout_centerHorizontal="true" android:id="@+id/firstMenuConductorButton" android:layout_marginTop="30dip"
+		android:layout_width="200dip" android:src="@drawable/recherche_voiture" android:background="#303030"
+		android:layout_height="200dip"></ImageButton>
+		
+		<ImageButton android:layout_centerHorizontal="true" android:id="@+id/firstMenuPassagerButton" android:layout_marginTop="20dip"
+		android:layout_width="200dip" android:src="@drawable/recherche_voiture" android:background="#303030"
+		android:layout_height="200dip" android:layout_below="@id/firstMenuConductorButton"></ImageButton>
+		
+		
+		
+		
+</RelativeLayout>
