@@ -192,6 +192,95 @@ public class WebClient {
 		}
 		Log.v(debugLabel, "=>\n"+json.toString(4));
 	}
+	
+	
+	public static String getStringFromPostJSONToUrl(JSONObject json, String url) throws IOException, JSONException{
+		String result = null;
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httpost = new HttpPost(url);
+
+		
+		
+		StringEntity se = new StringEntity(json.toString());
+		httpost.setEntity(se);
+		httpost.setHeader("Accept", "application/json");
+		httpost.setHeader("Content-type", "application/json");
+		
+		
+		HttpResponse response;
+		try {
+			response = httpclient.execute(httpost);
+			
+			// Get hold of the response entity
+			HttpEntity entity = response.getEntity();
+			// If the response does not enclose an entity, there is no need
+			// to worry about connection release
+
+			if (entity != null) {
+
+				InputStream instream = entity.getContent();
+				result= convertStreamToString(instream);
+
+				instream.close();
+
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			Log.e("WebClient", "Pb httpclient.execute...");
+		}
+		Log.v(debugLabel, "=>\n"+json.toString(4));
+		
+		
+		return result;
+	}
+	
+	
+	
+	public static JSONObject getJSONObjectFromPostJSONToUrl(JSONObject json, String url) throws IOException, JSONException{
+		String result = null;
+		JSONObject obj = null;
+		DefaultHttpClient httpclient = new DefaultHttpClient();
+		HttpPost httpost = new HttpPost(url);
+
+		
+		
+		StringEntity se = new StringEntity(json.toString());
+		httpost.setEntity(se);
+		httpost.setHeader("Accept", "application/json");
+		httpost.setHeader("Content-type", "application/json");
+		
+		
+		HttpResponse response;
+		try {
+			response = httpclient.execute(httpost);
+			
+			// Get hold of the response entity
+			HttpEntity entity = response.getEntity();
+			// If the response does not enclose an entity, there is no need
+			// to worry about connection release
+
+			if (entity != null) {
+
+				InputStream instream = entity.getContent();
+				result= convertStreamToString(instream);
+
+				instream.close();
+				
+				obj  =  new JSONObject(result);
+
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			Log.e("WebClient", "Pb httpclient.execute...");
+		}
+		Log.v(debugLabel, "=>\n"+json.toString(4));
+		
+		
+		return obj;
+	}
+
 
 
 	public static String getStringFromUrl(String url) throws IOException
