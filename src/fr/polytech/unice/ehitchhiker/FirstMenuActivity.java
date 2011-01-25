@@ -4,6 +4,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -57,6 +58,7 @@ public class FirstMenuActivity extends Activity implements OnClickListener,
 		conducteur.setOnClickListener(this);
 		passager.setOnClickListener(this);
 		passager.setOnTouchListener(this);
+		
 
 	}
 
