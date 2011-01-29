@@ -247,10 +247,11 @@ public class WebClient {
 		
 		StringEntity se = new StringEntity(json.toString());
 		httpost.setEntity(se);
+	
 		httpost.setHeader("Accept", "application/json");
 		httpost.setHeader("Content-type", "application/json");
 		
-		
+		Log.v("WebClient", "Envoi de la requette suivante : \n"+se);
 		HttpResponse response;
 		try {
 			response = httpclient.execute(httpost);
@@ -264,7 +265,7 @@ public class WebClient {
 
 				InputStream instream = entity.getContent();
 				result= convertStreamToString(instream);
-
+				Log.v("WebClient", "Reception : \n"+result);
 				instream.close();
 				
 				obj  =  new JSONObject(result);

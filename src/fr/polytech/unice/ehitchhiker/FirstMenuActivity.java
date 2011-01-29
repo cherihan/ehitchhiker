@@ -20,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * FirstMenuActivity.java, Created 12 janv. 2011 at 16:34:51
@@ -41,6 +42,7 @@ public class FirstMenuActivity extends Activity implements OnClickListener,
 
 	private final static int DIALOG_ACCOUNTS = 100;
 	private final static int DIALOG_CONFIRM = 101;
+	private final static int DIALOG_ERROR = 102;
 	private final static int REQUEST_AUTHENTICATE = 1;
 	private final static String PREF = "eHitchhiker";
 	private ImageButton conducteur;
@@ -71,6 +73,9 @@ public class FirstMenuActivity extends Activity implements OnClickListener,
 
 		if (UserParameters.getUserAccount() == "null") {
 			this.showDialog(DIALOG_ACCOUNTS);
+		}else{
+			authToken = UserParameters.getUserAccount();
+			logIn();
 		}
 
 	}
@@ -118,6 +123,7 @@ public class FirstMenuActivity extends Activity implements OnClickListener,
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							UserParameters.setUserAccount(authToken);
+							logIn();
 						}
 
 					});
@@ -129,6 +135,21 @@ public class FirstMenuActivity extends Activity implements OnClickListener,
 
 					});
 			return builder2.create();
+			
+			
+		case DIALOG_ERROR:
+			AlertDialog.Builder builder3 = new AlertDialog.Builder(this);
+			builder3.setTitle("Erreur");
+			builder3.setMessage("Une erreur est intervenue lors de la connexion a votre compte .");
+			
+			builder3.setNeutralButton("OK", 
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							
+						}
+
+					});
+			return builder3.create();
 		}
 
 		return null;
@@ -141,6 +162,18 @@ public class FirstMenuActivity extends Activity implements OnClickListener,
 		authToken = name;
 		showDialog(DIALOG_CONFIRM);
 
+	}
+	
+	public void logIn(){
+		APIAccess.Response connected = APIAccess.get().sendConnectionRequestWithGoogleAccount(authToken);
+		if(connected.equals(APIAccess.Response.CONNEXION_ERROR)){ showDialog(DIALOG_ERROR); return;}
+		if(connected.equals(APIAccess.Response.CONNEXION_OK)) { Toast.makeText(getApplicationContext(), "Connected !", Toast.LENGTH_SHORT); return; }
+		
+		
+		// Launching new Profile
+		
+		
+		
 	}
 
 	/*

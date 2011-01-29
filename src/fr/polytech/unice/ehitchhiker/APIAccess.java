@@ -25,6 +25,9 @@ import com.kinder.utils.WebClient;
  *
  */
 public class APIAccess {
+	public enum Response {
+	    CONNEXION_ERROR, CONNEXION_NEED_INSCRIPTION, CONNEXION_OK
+	}
 	private static APIAccess mInstance;
 	
 	
@@ -42,7 +45,7 @@ public class APIAccess {
 	}
 	
 	
-	public boolean sendConnectionRequestWithGoogleAccount(String google){
+	public Response sendConnectionRequestWithGoogleAccount(String google){
 		JSONObject obj = new JSONObject();
 		try {
 			obj.put("CONNEXION", google);
@@ -50,7 +53,9 @@ public class APIAccess {
 			
 			try {
 				JSONObject jsonRes = WebClient.getJSONObjectFromPostJSONToUrl(obj, Constants.URL_CONNEXION_DECONNEXION);
-				if(jsonRes.getString("CONNEXION").equals("REUSSIE")) return true;
+				
+				if(jsonRes.getString("CONNEXION").equals("REUSSIE")) return Response.CONNEXION_OK;
+				if(jsonRes.getString("CONNEXION").equals("UTILISATEUR_INCONNU")) return Response.CONNEXION_NEED_INSCRIPTION;
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -63,7 +68,7 @@ public class APIAccess {
 			e.printStackTrace();
 		}
 		
-		return false;
+		return Response.CONNEXION_ERROR ;
 		
 	}
 }
