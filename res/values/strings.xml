@@ -8,13 +8,15 @@
 	<string name="firstmenu_conductor_button">Je prends ma voiture :)</string>
 	<string name="firstmenu_passager_button">Je suis à pied :(</string>
 
-	<string-array name="destination_list">
+	<string-array name="destListViewStr">
 		<item>Saisir destination</item>
-		<item>Dicter destination</item>
+		<item>Dicter Destination</item>
 		<item>Destinations favorites</item>
-		<item>_Dernières destinations</item>
-		<item>dest1</item>
-		<item>dest2</item>
-		<item>dest3</item>
+		<item>Dernières destinations</item>
+		<item>Nice</item>
+		<item>Sophia-Antipolis</item>
+		<item>Antibes</item>
 	</string-array>
+	<string name="destinationChoiceButtonText">Chercher !</string>
+	<string name="destinationChoiceHint">Entrez une destination</string>
 </resources>

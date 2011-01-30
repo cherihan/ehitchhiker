@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import com.kinder.utils.WebClient;
 
+
 /**
  * @author kinder
  *
@@ -70,5 +71,38 @@ public class APIAccess {
 		
 		return Response.CONNEXION_ERROR ;
 		
+	}
+	
+	public ArrayList<String> getGoogleMapsSuggestionList(String address) {
+		ArrayList<String> suggestionList = new ArrayList<String>();
+		 JSONObject jsonRes = null;
+		try {
+			jsonRes  = WebClient.getJSONFromUrl(Constants.URL_GOOGLE_MAPS + address + "&sensor=true&language=fr");
+			if (!jsonRes.getString("status").equals("OK")) {
+				suggestionList.add("Aucun résultat");
+				return suggestionList;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		JSONArray results = null;
+		try {
+			results  = jsonRes.getJSONArray("results");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for (int i=0; i<results.length(); i++){
+			try {
+				suggestionList.add(results.getJSONObject(i).getString("formatted_address"));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return suggestionList;
 	}
 }
