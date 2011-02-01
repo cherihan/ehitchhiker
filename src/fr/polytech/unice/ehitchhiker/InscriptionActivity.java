@@ -10,6 +10,7 @@
  */
 package fr.polytech.unice.ehitchhiker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.Activity;
@@ -17,6 +18,8 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -24,7 +27,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 /**
  * @author kinder
@@ -40,6 +45,7 @@ public class InscriptionActivity extends Activity implements OnClickListener {
 	private String dateNaissanceString;
 	private String datePermisString;
 	private Button valider;
+	private ArrayList<View> voitures = new ArrayList<View>();
 
 	static final int DIALOG_DATE_NAISSANCE = 101;
 	static final int DIALOG_DATE_PERMIS = 102;
@@ -154,6 +160,18 @@ public class InscriptionActivity extends Activity implements OnClickListener {
 		}
 		if (arg0.getId() == R.id.inscription_permis_input) {
 			showDialog(DIALOG_DATE_PERMIS);
+		}
+		if(arg0.getId()== R.id.inscription_plus){
+			Log.v("Inscription", "Une voiture en plus!");
+			
+			
+			View v = View.inflate(this, R.layout.inscription_voiture, null);
+			TextView number = (TextView) v.findViewById(R.id.inscription_voiture_number);
+			number.setText(voitures.size()+1+".");
+			voitures.add(v);
+			LinearLayout lin = (LinearLayout) this.findViewById(R.id.inscription_linear_layout);
+			lin.addView(v);
+			
 		}
 
 	}

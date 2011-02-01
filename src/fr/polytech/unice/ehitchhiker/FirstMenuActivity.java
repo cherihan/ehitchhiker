@@ -1,5 +1,7 @@
 package fr.polytech.unice.ehitchhiker;
 
+
+
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -171,7 +173,8 @@ public class FirstMenuActivity extends Activity implements OnClickListener,
 		
 		
 		// Launching new Profile
-		
+		Intent i = new Intent(FirstMenuActivity.this, InscriptionActivity.class);
+		startActivity(i);
 		
 		
 	}

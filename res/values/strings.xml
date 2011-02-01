@@ -36,5 +36,9 @@
 	<string name="inscription_date_permis">Permis depuis</string>
 	<string name="inscription_genre_prompt"> Choisissez un genre</string>
 	<string name="inscription_valider">S\'inscrire !</string>
+	<string name="inscription_voiture_marque">Marque</string>
+	<string name="inscription_voiture_modele">Modèle</string>
+	<string name="inscription_voiture_couleur">Couleur</string>
+	<string name="inscription_voiture_consommation">Consommation</string>
 
 </resources>

@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="wrap_content"
-  android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent" android:layout_height="wrap_content"
+	 android:id="@+id/inscription_voiture_fichevoiture"
+	android:orientation="vertical">
+
+
+
+	<RelativeLayout android:orientation="horizontal"
+		android:layout_width="match_parent" android:layout_height="wrap_content">
+		<TextView android:text="1." android:textSize="18dip"
+			android:layout_centerVertical="true" android:id="@+id/inscription_voiture_number"
+			android:textColor="#FFFFFF" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:layout_marginRight="10dip"
+			android:layout_marginTop="10dip"></TextView>
+
+		<TextView android:text="@string/inscription_voiture_marque"
+			android:layout_toRightOf="@id/inscription_voiture_number"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_marginRight="20dip" android:layout_centerVertical="true"></TextView>
+
+
+		<EditText android:hint="Ford" android:layout_width="200dip"
+			android:id="@+id/inscription_marque_input" android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"></EditText>
+
+
+	</RelativeLayout>
+
+	<RelativeLayout android:orientation="horizontal"
+		android:layout_width="match_parent" android:layout_height="wrap_content">
+
+
+		<TextView android:text="@string/inscription_voiture_modele"
+			android:layout_toRightOf="@id/inscription_voiture_number"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_marginLeft="24dip" android:layout_marginRight="20dip"
+			android:layout_centerVertical="true"></TextView>
+
+
+		<EditText android:hint="Fiesta" android:layout_width="200dip"
+			android:id="@+id/inscription_modele_input" android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"></EditText>
+
+
+	</RelativeLayout>
+
+	<RelativeLayout android:orientation="horizontal"
+		android:layout_width="match_parent" android:layout_height="wrap_content">
+
+
+		<TextView android:text="@string/inscription_voiture_couleur"
+			android:layout_toRightOf="@id/inscription_voiture_number"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_marginLeft="24dip" android:layout_marginRight="20dip"
+			android:layout_centerVertical="true"></TextView>
+
+
+		<EditText android:hint="Grise" android:layout_width="200dip"
+			android:id="@+id/inscription_couleur_input" android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"></EditText>
+
+
+	</RelativeLayout>
+
+	<RelativeLayout android:orientation="horizontal"
+		android:layout_width="match_parent" android:layout_height="wrap_content">
+
+
+		<TextView android:text="@string/inscription_voiture_consommation"
+			android:layout_toRightOf="@id/inscription_voiture_number"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_marginLeft="24dip" android:layout_marginRight="20dip"
+			android:layout_centerVertical="true"></TextView>
+
+
+		<EditText android:hint="7.5" android:layout_width="200dip"
+			android:id="@+id/inscription_conso_input" android:layout_height="wrap_content"
+			android:numeric="decimal" android:layout_alignParentRight="true"
+			></EditText>
+
+
+	</RelativeLayout>
 </LinearLayout>
