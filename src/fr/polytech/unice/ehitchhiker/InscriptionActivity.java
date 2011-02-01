@@ -14,9 +14,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +32,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * @author kinder
@@ -49,6 +52,7 @@ public class InscriptionActivity extends Activity implements OnClickListener {
 
 	static final int DIALOG_DATE_NAISSANCE = 101;
 	static final int DIALOG_DATE_PERMIS = 102;
+	static final int DIALOG_NON_REMPLI = 103;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,6 +74,7 @@ public class InscriptionActivity extends Activity implements OnClickListener {
 		plusCar.setOnClickListener(this);
 		
 		valider = (Button) this.findViewById(R.id.inscription_valider);
+		valider.setOnClickListener(this);
 	}
 
 	@Override
@@ -142,6 +147,21 @@ public class InscriptionActivity extends Activity implements OnClickListener {
 
 						}
 					}, cyear2, cmonth2, cday2);
+			
+			
+		case DIALOG_NON_REMPLI:
+			AlertDialog.Builder builder3 = new AlertDialog.Builder(this);
+			builder3.setTitle("Il manque quelque chose...");
+			builder3.setMessage("Vérifiez que vous avez bien donné toutes les informations !");
+			
+			builder3.setNeutralButton("OK", 
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							
+						}
+
+					});
+			return builder3.create();
 		}
 
 		return null;
@@ -171,6 +191,59 @@ public class InscriptionActivity extends Activity implements OnClickListener {
 			voitures.add(v);
 			LinearLayout lin = (LinearLayout) this.findViewById(R.id.inscription_linear_layout);
 			lin.addView(v);
+			
+		}
+		
+		if(arg0.getId()==R.id.inscription_valider){
+			Log.v("Inscription", "Appui sur s'inscrire");
+			ArrayList<Car> l = new ArrayList<Car>();
+			for(int i=0; i<voitures.size(); i++){
+				View v = voitures.get(i);
+				EditText marque = (EditText) v.findViewById(R.id.inscription_marque_input);
+				EditText modele = (EditText) v.findViewById(R.id.inscription_modele_input);
+				EditText couleur = (EditText) v.findViewById(R.id.inscription_couleur_input);
+				EditText conso = (EditText) v.findViewById(R.id.inscription_conso_input);
+				String sMarque = marque.getText().toString();
+				String sModele = modele.getText().toString();
+				String sCouleur = couleur.getText().toString();
+				String sConso = conso.getText().toString();
+				if(sMarque.length()>0 && sModele.length()>0 && sCouleur.length() >0 && sConso.length() > 0){
+					Car c = new Car();
+					c.marque=sMarque;
+					c.modele=sModele;
+					c.couleur=sCouleur;
+					c.consommation = Double.parseDouble(sConso);
+					l.add(c);				
+				}				
+			}
+			
+			
+			Log.v("Inscription", "Voitures : "+l.toString());
+			String utilisateur = UserParameters.getUserAccount();
+			String sPseudo = pseudo.getText().toString();
+			int g = genre.getSelectedItemPosition();
+			String sGenre;
+			if(g==0){
+				sGenre = "M";
+			}else{	
+				sGenre = "F";
+			}
+			
+			
+			if(sPseudo.length()>0 && dateNaissanceString.length() >0 && datePermisString.length() >0){
+				Toast.makeText(this.getApplicationContext(), "Inscription en cours...", Toast.LENGTH_LONG).show();
+				
+				APIAccess.Response r = APIAccess.get().sendInscriptionRequest(utilisateur, sPseudo, sGenre, dateNaissanceString, datePermisString, l);
+				if(r.equals(APIAccess.Response.INSCRIPTION_OK)){
+					Toast.makeText(this.getApplicationContext(), "Inscription terminée !", Toast.LENGTH_SHORT).show();
+					this.finish();
+				}else{
+					Toast.makeText(this.getApplicationContext(), "Erreur !", Toast.LENGTH_SHORT).show();
+				}
+			}
+			else{
+				showDialog(DIALOG_NON_REMPLI);
+			}
 			
 		}
 

@@ -17,6 +17,6 @@ package fr.polytech.unice.ehitchhiker;
 public class Constants {
 	public static final String URL_CONNEXION_DECONNEXION = "http://ehitcchiker.appspot.com/connexionDeconnexion";
 	public static final String URL_GOOGLE_MAPS = "http://maps.googleapis.com/maps/api/geocode/json?address=";
-	
+	public static final String URL_INSCRIPTION = "http://ehitcchiker.appspot.com/inscription";
 
 }

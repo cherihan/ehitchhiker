@@ -173,6 +173,7 @@ public class FirstMenuActivity extends Activity implements OnClickListener,
 		
 		
 		// Launching new Profile
+		Toast.makeText(getApplicationContext(), "Inscription...", Toast.LENGTH_SHORT).show();
 		Intent i = new Intent(FirstMenuActivity.this, InscriptionActivity.class);
 		startActivity(i);
 		

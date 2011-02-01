@@ -27,8 +27,10 @@ import com.kinder.utils.WebClient;
  */
 public class APIAccess {
 	public enum Response {
-	    CONNEXION_ERROR, CONNEXION_NEED_INSCRIPTION, CONNEXION_OK
+	    CONNEXION_ERROR, CONNEXION_NEED_INSCRIPTION, CONNEXION_OK, INSCRIPTION_DEJA_INSCRIT,
+	    INSCRIPTION_PSEUDO_DEJA_PRIS, INSCRIPTION_OK, INSCRIPTION_ERROR
 	}
+	
 	private static APIAccess mInstance;
 	
 	
@@ -107,5 +109,61 @@ public class APIAccess {
 		}
 		
 		return suggestionList;
+	}
+	
+	
+	public Response sendInscriptionRequest(String utilisateur, String pseudo, String genre, String dateNaissance, String permis, ArrayList<Car> voitures){
+		JSONArray cars = new JSONArray();
+		for(int i=0; i<voitures.size(); i++){
+			JSONObject v = new JSONObject();
+			try {
+				v.put("marque", voitures.get(i).marque);
+				v.put("modele", voitures.get(i).modele);
+				v.put("couleur", voitures.get(i).couleur);
+				v.put("consommation", voitures.get(i).consommation);
+				v.put("photo", voitures.get(i).photo);
+				cars.put(v);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		JSONObject obj = new JSONObject();
+		try {
+			JSONObject inscrip = new JSONObject();
+			inscrip.put("utilisateur", utilisateur);
+			inscrip.put("pseudo", pseudo);
+			inscrip.put("genre", genre);
+			inscrip.put("dateNaissance", dateNaissance);
+			inscrip.put("permis", permis);
+			inscrip.put("voitures", cars);
+			
+			obj.put("INSCRIPTION", inscrip);
+			
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		try {
+			JSONObject jsonRes = WebClient.getJSONObjectFromPostJSONToUrl(obj, Constants.URL_INSCRIPTION);
+			
+			if(jsonRes.getString("INSCRIPTION").equals("UTILISATEUR_DEJA_ENREGISTRE")) return Response.INSCRIPTION_DEJA_INSCRIT;
+			if(jsonRes.getString("INSCRIPTION").equals("PSEUDO_DEJA_PRIS")) return Response.INSCRIPTION_PSEUDO_DEJA_PRIS;
+			return Response.INSCRIPTION_OK;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return Response.INSCRIPTION_ERROR;
 	}
 }
