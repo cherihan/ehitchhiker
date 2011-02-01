@@ -17,9 +17,24 @@
 		<item>Sophia-Antipolis</item>
 		<item>Antibes</item>
 	</string-array>
+
+	<string-array name="genre">
+		<item>Homme</item>
+		<item>Femme</item>
+	</string-array>
+	
+	
 	<string name="destinationChoiceButtonText">Chercher !</string>
 	<string name="destinationChoiceHint">Entrez une destination</string>
 	<string name="favoriteDestinationHeader">Destinations favorites</string>
 	<string name="delete">Supprimer</string>
 	<string name="favorite">Ajouter Favori</string>
+
+	<string name="inscription_pseudo">Votre pseudo</string>
+	<string name="inscription_genre">Genre</string>
+	<string name="inscription_date_naissance">Date de naissance</string>
+	<string name="inscription_date_permis">Permis depuis</string>
+	<string name="inscription_genre_prompt"> Choisissez un genre</string>
+	<string name="inscription_valider">S\'inscrire !</string>
+
 </resources>
