@@ -1,23 +1,32 @@
 package fr.polytech.unice.ehitchhiker;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import fr.polytech.unice.ehitchhiker.FavoriteDestinationListAdapter.FavoriteDestinationListViewHolder;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class DestinationChoiceActivity extends Activity implements TextWatcher,
 		OnItemClickListener {
-	private ArrayList<String> suggestionList;
+	private ArrayList<Destination> suggestionList;
 	private ListView suggestionListView;
 	private EditText searchDestinationEditText;
 	private Handler reqHandler;
@@ -47,10 +56,9 @@ public class DestinationChoiceActivity extends Activity implements TextWatcher,
 				.findViewById(R.id.searchDestinationEditText);
 		searchDestinationEditText.addTextChangedListener(this);
 
-		suggestionList = new ArrayList<String>();
-		suggestionList.add("Aucun résultat");
-		suggestionListView.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.destination_choice_list, suggestionList));
+		suggestionList = new ArrayList<Destination>();
+		suggestionList.add(new Destination("Aucun résultat",0,0));
+		suggestionListView.setAdapter(new DestinationChoiceListAdapter(this, suggestionList));
 		suggestionListView.setOnItemClickListener(this);
 
 	}
@@ -67,10 +75,9 @@ public class DestinationChoiceActivity extends Activity implements TextWatcher,
 
 	}
 
-	public void updateSuggestionResults(ArrayList<String> suggestions) {
+	public void updateSuggestionResults(ArrayList<Destination> suggestions) {
 		suggestionList = suggestions;
-		suggestionListView.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.destination_choice_list, suggestionList));
+		suggestionListView.setAdapter(new DestinationChoiceListAdapter(this, suggestionList));
 	}
 
 	@Override
@@ -93,8 +100,79 @@ public class DestinationChoiceActivity extends Activity implements TextWatcher,
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		Intent intent = new Intent(this, RequestSavedActivity.class);
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+		HashMap<String, Object> map = UserParameters.getUserFavorites();
+		Destination tmp;
+		
+		tmp = (Destination)map.get("last2");
+		map.remove("last3");
+		map.put("last3", tmp);
+		
+		tmp = (Destination)map.get("last1");
+		map.remove("last2");
+		map.put("last2", tmp);
+		
+		tmp = suggestionList.get(position);
+		map.put("last1", tmp);
+		
+		UserParameters.setUserFavorites(map);
+;		Intent intent = new Intent(this, RequestSavedActivity.class);
 		startActivity(intent);
 	}
+}
+
+class DestinationChoiceListAdapter extends BaseAdapter {
+
+	private LayoutInflater inflater;
+	private ArrayList<Destination> sugg;
+
+	public DestinationChoiceListAdapter(Context context,
+			ArrayList<Destination> sugg) {
+		this.sugg = sugg;
+		inflater = LayoutInflater.from(context);
+	}
+
+	@Override
+	public int getCount() {
+		return sugg.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return sugg.get(position);
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
+
+	public boolean areAllItemsEnabled() {
+		return true;
+	}
+
+	public boolean isEnabled(int position) {
+		return true;
+	}
+
+	public int getViewType(int position) {
+		return 0;
+	}
+
+	public int getViewTypeCount() {
+		return 1;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		TextView address;
+
+		convertView = inflater.inflate(R.layout.destination_choice_list, null);
+		address = (TextView) convertView
+				.findViewById(R.id.suggestionRowText);
+		address.setText(sugg.get(position).toString());
+
+		return convertView;
+	}
+
 }

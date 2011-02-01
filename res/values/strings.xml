@@ -19,4 +19,7 @@
 	</string-array>
 	<string name="destinationChoiceButtonText">Chercher !</string>
 	<string name="destinationChoiceHint">Entrez une destination</string>
+	<string name="favoriteDestinationHeader">Destinations favorites</string>
+	<string name="delete">Supprimer</string>
+	<string name="favorite">Ajouter Favori</string>
 </resources>

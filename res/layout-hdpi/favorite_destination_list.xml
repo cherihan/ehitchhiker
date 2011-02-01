@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="horizontal">
+
+	<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/favoriteDestinationText" android:layout_height="wrap_content"
+		android:layout_width="wrap_content" android:textSize="25dip"
+		android:paddingTop="10dip" android:paddingBottom="10dip"
+		android:paddingLeft="5dip" />
+
+	<Button android:id="@+id/deleteButton" android:layout_height="wrap_content"
+		android:layout_width="wrap_content" android:gravity="right"
+		android:text="@string/delete" android:layout_marginRight="10dip"
+		android:textColor="#FFFFFF" android:background="#FF0000"
+		android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+</RelativeLayout>

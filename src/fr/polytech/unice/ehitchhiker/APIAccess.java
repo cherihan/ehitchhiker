@@ -73,13 +73,13 @@ public class APIAccess {
 		
 	}
 	
-	public ArrayList<String> getGoogleMapsSuggestionList(String address) {
-		ArrayList<String> suggestionList = new ArrayList<String>();
+	public ArrayList<Destination> getGoogleMapsSuggestionList(String address) {
+		ArrayList<Destination> suggestionList = new ArrayList<Destination>();
 		 JSONObject jsonRes = null;
 		try {
 			jsonRes  = WebClient.getJSONFromUrl(Constants.URL_GOOGLE_MAPS + address + "&sensor=true&language=fr");
 			if (!jsonRes.getString("status").equals("OK")) {
-				suggestionList.add("Aucun résultat");
+				suggestionList.add(new Destination("Aucun résultat", 0, 0));
 				return suggestionList;
 			}
 		} catch (Exception e) {
@@ -96,7 +96,10 @@ public class APIAccess {
 		
 		for (int i=0; i<results.length(); i++){
 			try {
-				suggestionList.add(results.getJSONObject(i).getString("formatted_address"));
+				String formatted_address = results.getJSONObject(i).getString("formatted_address");
+				double longitude = results.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lng");
+				double latitude = results.getJSONObject(i).getJSONObject("geometry").getJSONObject("location").getDouble("lat");
+				suggestionList.add(new Destination(formatted_address, latitude, longitude));
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
