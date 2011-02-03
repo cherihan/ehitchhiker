@@ -13,6 +13,8 @@ package fr.polytech.unice.ehitchhiker;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import fr.polytech.unice.ehitchhiker.APIAccess.Response;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -233,11 +235,42 @@ public class InscriptionActivity extends Activity implements OnClickListener {
 			if(sPseudo.length()>0 && dateNaissanceString.length() >0 && datePermisString.length() >0){
 				Toast.makeText(this.getApplicationContext(), "Inscription en cours...", Toast.LENGTH_LONG).show();
 				
-				APIAccess.Response r = APIAccess.get().sendInscriptionRequest(utilisateur, sPseudo, sGenre, dateNaissanceString, datePermisString, l);
+	 			APIAccess.Response r = APIAccess.get().sendInscriptionRequest(utilisateur, sPseudo, sGenre, dateNaissanceString, datePermisString, l);
+	 			
+	 			switch(r) {
+	 			case INSCRIPTION_GENRE_INCORRECT:
+	 				Log.v("ERREUR CONNEXION", "GENRE INCORRECT");
+	 				break;
+	 			case INSCRIPTION_NAISSANCE_INCORRECTE:
+	 				Log.v("ERREUR CONNEXION", "NAISSANCE INCORRECT");
+	 				break;
+	 				
+	 			case INSCRIPTION_PERMIS_INCORRECT:
+	 				Log.v("ERREUR CONNEXION", "PERMIS INCORRECT");
+	 				break;
+	 				
+	 			case INSCRIPTION_OK:
+	 				Log.v("ERREUR CONNEXION", "INSCRIPTION OK");
+	 				break;
+	 				
+	 			case INSCRIPTION_PSEUDO_DEJA_PRIS:
+	 				Log.v("ERREUR CONNEXION", "PSEUDO DEJA PRIS");
+	 				break;
+	 				
+	 			case INSCRIPTION_DEJA_INSCRIT:
+	 				Log.v("ERREUR CONNEXION", "DEJA INSCRIT");
+	 				break;
+	 				
+	 			default:
+	 				Log.v("ERREUR CONNEXION", "WHAT THE FUCK?");
+	 				
+	 			}
+	 			
 				if(r.equals(APIAccess.Response.INSCRIPTION_OK)){
 					Toast.makeText(this.getApplicationContext(), "Inscription terminée !", Toast.LENGTH_SHORT).show();
 					this.finish();
 				}else{
+	
 					Toast.makeText(this.getApplicationContext(), "Erreur !", Toast.LENGTH_SHORT).show();
 				}
 			}

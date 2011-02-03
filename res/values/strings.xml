@@ -22,8 +22,8 @@
 		<item>Homme</item>
 		<item>Femme</item>
 	</string-array>
-	
-	
+
+
 	<string name="destinationChoiceButtonText">Chercher !</string>
 	<string name="destinationChoiceHint">Entrez une destination</string>
 	<string name="favoriteDestinationHeader">Destinations favorites</string>
@@ -40,5 +40,7 @@
 	<string name="inscription_voiture_modele">Modèle</string>
 	<string name="inscription_voiture_couleur">Couleur</string>
 	<string name="inscription_voiture_consommation">Consommation</string>
+	<string name="maps_api_key">0Ag48nCGKMX_oEyG9b4FVtysClvzvLjDKbmPMmg</string>
+	<string name="launch">Lancer</string>
 
 </resources>

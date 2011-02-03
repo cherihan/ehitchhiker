@@ -31,6 +31,7 @@ public class DestinationActivity extends Activity implements
 	public static final int DIALOG_FAVORITE = 100;
 	public static final int DIALOG_ERROR = 101;
 	private int dest_chosen = 0;
+	private String type;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,8 @@ public class DestinationActivity extends Activity implements
 				.findViewById(R.id.destinationListView);
 		strListView = (String[]) this.getResources().getStringArray(
 				R.array.destListViewStr);
+		
+		type = getIntent().getExtras().getString("type");
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("last1", new Destination("Aucun", 0, 0));
@@ -91,11 +94,20 @@ public class DestinationActivity extends Activity implements
 			long id) {
 		if (position == 0) {
 			Intent intent = new Intent(this, DestinationChoiceActivity.class);
+			intent.putExtra("type", type);
 			startActivity(intent);
 		}
 		
 		if (position == 2) {
 			Intent intent = new Intent(this, FavoriteDestinationActivity.class);
+			intent.putExtra("type", type);
+			startActivity(intent);
+		}
+		
+		if (position > 3 && position < 7) {
+			Intent intent = new Intent(this, RequestSavedActivity.class);
+			intent.putExtra("type", type);
+			intent.putExtra("destination", (Destination)UserParameters.getUserFavorites().get("last" + (position-3)));
 			startActivity(intent);
 		}
 

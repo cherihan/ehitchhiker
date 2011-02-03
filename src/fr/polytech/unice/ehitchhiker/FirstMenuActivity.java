@@ -59,9 +59,9 @@ public class FirstMenuActivity extends Activity implements OnClickListener,
 				.findViewById(R.id.firstMenuConductorButton);
 		passager = (ImageButton) this
 				.findViewById(R.id.firstMenuPassagerButton);
-		conducteur.setOnClickListener(this);
-		passager.setOnClickListener(this);
+
 		passager.setOnTouchListener(this);
+		conducteur.setOnTouchListener(this);
 		
 
 	}
@@ -170,7 +170,8 @@ public class FirstMenuActivity extends Activity implements OnClickListener,
 		APIAccess.Response connected = APIAccess.get().sendConnectionRequestWithGoogleAccount(authToken);
 		if(connected.equals(APIAccess.Response.CONNEXION_ERROR)){ showDialog(DIALOG_ERROR); return;}
 		if(connected.equals(APIAccess.Response.CONNEXION_OK)) { Toast.makeText(getApplicationContext(), "Connected !", Toast.LENGTH_SHORT); return; }
-		
+		if(connected.equals(APIAccess.Response.CONNEXION_DEJA_CONNECTE)) { Toast.makeText(getApplicationContext(), " Already connected !", Toast.LENGTH_SHORT).show(); return; }
+
 		
 		// Launching new Profile
 		Toast.makeText(getApplicationContext(), "Inscription...", Toast.LENGTH_SHORT).show();
@@ -187,10 +188,18 @@ public class FirstMenuActivity extends Activity implements OnClickListener,
 	 * android.view.MotionEvent)
 	 */
 	@Override
-	public boolean onTouch(View arg0, MotionEvent arg1) {
-
-		arg0.setBackgroundColor(Color.GRAY);
-		return false;
+	public boolean onTouch(View view, MotionEvent arg1) {
+		if (view == conducteur) {
+			Intent intent = new Intent(this, DestinationActivity.class);
+			intent.putExtra("type", "conducteur");
+			startActivity(intent);
+		} else {
+			Intent intent = new Intent(this, DestinationActivity.class);
+			intent.putExtra("type", "pieton");
+			startActivity(intent);
+		}
+		
+		return true;
 	}
 
 }

@@ -31,6 +31,7 @@ public class DestinationChoiceActivity extends Activity implements TextWatcher,
 	private EditText searchDestinationEditText;
 	private Handler reqHandler;
 	private Runnable timer;
+	private String type;
 
 	private static final int UPDATE_TIME = 500;
 
@@ -38,7 +39,8 @@ public class DestinationChoiceActivity extends Activity implements TextWatcher,
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.destination_choice);
-
+		
+		type = getIntent().getExtras().getString("type");
 		reqHandler = new Handler();
 		timer = new Runnable() {
 			public void run() {
@@ -116,7 +118,9 @@ public class DestinationChoiceActivity extends Activity implements TextWatcher,
 		map.put("last1", tmp);
 		
 		UserParameters.setUserFavorites(map);
-;		Intent intent = new Intent(this, RequestSavedActivity.class);
+		Intent intent = new Intent(this, RequestSavedActivity.class);
+		intent.putExtra("type", type);
+		intent.putExtra("destination", suggestionList.get(position));
 		startActivity(intent);
 	}
 }

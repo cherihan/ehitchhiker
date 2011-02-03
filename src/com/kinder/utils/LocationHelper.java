@@ -51,7 +51,7 @@ public class LocationHelper {
 		};
 	}
 
-
+	
 	public static void init(LocationManager manager, LocationHelperListener listen) {
 		if(null == instance) {
 			try {
