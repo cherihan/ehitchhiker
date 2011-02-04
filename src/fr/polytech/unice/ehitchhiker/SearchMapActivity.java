@@ -26,21 +26,29 @@ public class SearchMapActivity extends MapActivity implements LocationHelper.Loc
 	private MapController searchMapController;
 	private ArrayList<Driver> drivers;
 	private CurrentPositionOverlay curr;
+	private Destination destination;
+	private String type;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map_search);
 		
-		
 		searchMap = (MapView)findViewById(R.id.searchMap);
 		searchMap.setBuiltInZoomControls(true);
 		searchMap.setSatellite(true);
 		
+		destination = (Destination)getIntent().getExtras().get("destination");
+		type = (String)getIntent().getExtras().getString("type");
 		LocationHelper.init((LocationManager)getSystemService(Context.LOCATION_SERVICE), this);
 		LocationHelper.get().start();
 		curr = new CurrentPositionOverlay(this.getResources().getDrawable(R.drawable.marker_blue));
 		//getIntent().getExtras().getString("type").toUpperCase()
-		drivers = APIAccess.get().sendResearchRequest("richter.romain@gmail.com", "PIETON", "0674921998", 43.6171113, 7.0722257, "Marseille", 43.6171113, 7.0722257);
+		
+		if (!(destination.getName().startsWith("Marseille") || destination.getName().startsWith("Aix")))
+			drivers = new ArrayList<Driver>();
+		else
+			drivers = APIAccess.get().sendResearchRequest("richter.romain@gmail.com", type.toUpperCase(), "0674921998", destination.getLatitude(), destination.getLongitude(), "Marseille", destination.getLatitude(), destination.getLongitude());
+		
 		//drivers = new ArrayList<Driver>();
 		//drivers.add(new Driver("Edouard Marquez", "0684726678", 43.6171113, 7.0722257, 43.6171113, 7.0722257));
 		

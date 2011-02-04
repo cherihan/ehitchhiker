@@ -2,16 +2,17 @@ package fr.polytech.unice.ehitchhiker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,7 +105,7 @@ public class DestinationActivity extends Activity implements
 			startActivity(intent);
 		}
 		
-		if (position > 3 && position < 7) {
+		if (position > 3 && position < 7 && !strListView[position].equals("Aucun")) {
 			Intent intent = new Intent(this, RequestSavedActivity.class);
 			intent.putExtra("type", type);
 			intent.putExtra("destination", (Destination)UserParameters.getUserFavorites().get("last" + (position-3)));
